@@ -13,8 +13,7 @@ public class CheckingAccount extends Account {
      */
     public void withdraw(double amount) {
         assert amount > 0: "Amount must be greater than zero";
-        assert (amount - getBalance() <= overdraftLimit)
-                : "Withdrawal not allowed. Exceeds the overdraft limit.";
+        assert (amount - getBalance() <= overdraftLimit): "Transaction failed: Insufficient funds. Cannot withdraw " + amount + ".";
         balance -= amount;
     }
     /**
