@@ -65,7 +65,8 @@ public class Bank<T extends Account> {
                 account.deposit(amount);
                 System.out.println("Deposited $" + amount + " into account " + account.getAccountNumber());
             } else {
-                account.withdraw(-(amount+fee));
+                double newAmount = amount-fee;
+                account.withdraw(-newAmount);
                 System.out.println("Withdrew $" + (-amount) + " from account " + account.getAccountNumber());
             }
         } catch (InsufficientFundsException e) {
