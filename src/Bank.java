@@ -14,19 +14,34 @@ public class Bank<T extends Account> {
         accounts.add(account);
     }
     // Provide a function for getAccounts to get the private account variable.
-    public T getAccounts(T account){
-        return account;
+    public List<T> getAccounts(){
+        return accounts;
+        
     }
 
-
+// Implement a method getTotalBalance() to calculate and return the total
+    // balance across all accounts.
+    // Use a generic wildcard to represent the account types totaling from.
     // Get total balance across all accounts
-    public double getTotalBalance() {
+
+     // Get total balance across all accounts
+     public double getTotalBalance() {
         double total = 0;
         for (T account : accounts) {
             total += account.getBalance();
         }
         return total;
     }
+
+    public static double calculateTotalBalance(List<? extends Account> accounts) {
+        double total = 0;
+        for (Account account : accounts) {
+            total += account.getBalance();
+        }
+        return total;
+    }
+
+    
 
     // Perform a transaction on a specific account
     public void performTransaction(T account, double amount) {
@@ -62,23 +77,12 @@ public class Bank<T extends Account> {
     // parameter fees to handle fees when a withdrawal is happening.
 
     // List all accounts in the bank
-    public void listAccounts() {
-        System.out.println("Accounts in the Bank:");
-        for (T account : accounts) {
+    public void listAccounts(List<? extends Account> accounts) {
+        for (Account account : accounts) {
             System.out.println(account);
         }
     }
 
-    // Implement a method getTotalBalance() to calculate and return the total
-    // balance across all accounts.
-    // Use a generic wildcard to represent the account types totaling from.
     
-    public double getTotalBalance(){
-        double total;
-        for(T account: accounts){
-            total += account.getBalance();
-        }
-        System.out.println("Total Balance Across All Accounts: " + total);
-        return total;
-    }
+    
 }

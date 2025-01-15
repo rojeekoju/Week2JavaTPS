@@ -37,12 +37,12 @@ public class Transaction<T> {
 
         //deposit if positive amount
         if (amount > 0) {
-            account.deposit(amount);
+            ((Account) account).deposit(amount);
         }
         //withdraw if negative
         else if (amount < 0) {
             try {
-                account.withdraw(-amount);
+                ((Account) account).withdraw(-amount);
             } catch (InsufficientFundsException e) {
                 System.out.println("Unable to withdraw, insufficient funds");
             }
@@ -59,10 +59,10 @@ public class Transaction<T> {
 
         double newAmount = amount - fee;
 
-        if (newAmount > 0) account.deposit(newAmount);
+        if (newAmount > 0) ((Account) account).deposit(newAmount);
         else if (newAmount < 0) {
             try {
-                account.withdraw(-newAmount);
+                ((Account) account).withdraw(-newAmount);
             } catch (InsufficientFundsException e) {
                 System.out.println("Unable to withdraw, insufficient funds");
             }

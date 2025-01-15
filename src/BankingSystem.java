@@ -30,6 +30,6 @@ public class BankingSystem {
         bank.listAccounts(bank.getAccounts());
 
         System.out.println("\nTotal Balance Across All Accounts: $" +
-                Bank.calculateTotalBalance(bank.getAccounts()));
+            Bank.calculateTotalBalance(bank.getAccounts()));
     }
 }
