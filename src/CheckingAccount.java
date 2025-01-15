@@ -7,12 +7,23 @@ public class CheckingAccount extends Account {
         this.overdraftLimit = overdraftLimit;
     }
 
-    /*
-    Overload the withdraw method to check if the withdrawal exceeds the overdraft limit.
-    Use assertions.
-    Overload the deposit method to check if the deposit is greater than 0.
-    Use assertions.
+    /**
+     *     Overload the withdraw method to check if the withdrawal exceeds the overdraft limit.
+     *     Use assertions.
      */
+    public void withdraw(double amount) {
+        assert amount > 0: "Amount must be greater than zero";
+        assert (amount - getBalance() <= overdraftLimit): "Transaction failed: Insufficient funds. Cannot withdraw " + amount + ".";
+        balance -= amount;
+    }
+    /**
+     *     Overload the deposit method to check if the deposit is greater than 0.
+     *     Use assertions.
+     */
+    public void deposit (double amount) {
+        assert amount > 0: "Amount must be greater than zero";
+        balance += amount;
+    }
 
     public double getOverdraftLimit() {
         return overdraftLimit;
