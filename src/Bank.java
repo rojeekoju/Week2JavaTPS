@@ -72,4 +72,13 @@ public class Bank<T extends Account> {
     // Implement a method getTotalBalance() to calculate and return the total
     // balance across all accounts.
     // Use a generic wildcard to represent the account types totaling from.
+    
+    public double getTotalBalance(){
+        double total;
+        for(T account: accounts){
+            total += account.getBalance();
+        }
+        System.out.println("Total Balance Across All Accounts: " + total);
+        return total;
+    }
 }
