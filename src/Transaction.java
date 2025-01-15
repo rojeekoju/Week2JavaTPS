@@ -14,3 +14,58 @@ If the amount is negative, it should withdraw the amount. Handle exceptions prop
 Add an overloaded execute() method that takes an additional fee parameter for withdrawal
 transactions.
  */
+
+//using generics as T
+//Using Account (superclass) could probably also work?
+//Or T extends Account maybe?
+public class Transaction<T> {
+    T account;
+    double amount;
+
+    public Transaction(T account, double amount) {
+        this.account = account;
+        this.amount = amount;
+    }
+
+    public void execute() {
+        //careful, could have a ClassCastException if not an account
+        try {
+            Account castAccount = (Account) account;
+        } catch (ClassCastException e) {
+            System.out.println("Invalid account");
+        }
+
+        //deposit if positive amount
+        if (amount > 0) {
+            account.deposit(amount);
+        }
+        //withdraw if negative
+        else if (amount < 0) {
+            try {
+                account.withdraw(-amount);
+            } catch (InsufficientFundsException e) {
+                System.out.println("Unable to withdraw, insufficient funds");
+            }
+        }
+    }
+
+    public void execute(double fee) {
+        //careful, could have a ClassCastException if not an account
+        try {
+            Account castAccount = (Account) account;
+        } catch (ClassCastException e) {
+            System.out.println("Invalid account");
+        }
+
+        double newAmount = amount - fee;
+
+        if (newAmount > 0) account.deposit(newAmount);
+        else if (newAmount < 0) {
+            try {
+                account.withdraw(-newAmount);
+            } catch (InsufficientFundsException e) {
+                System.out.println("Unable to withdraw, insufficient funds");
+            }
+        }
+    }
+}
