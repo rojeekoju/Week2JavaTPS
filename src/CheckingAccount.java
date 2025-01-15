@@ -14,7 +14,9 @@ public class CheckingAccount extends Account {
     public void withdraw(double amount) throws InsufficientFundsException {
         assert amount > 0: "Amount must be greater than zero";
 
-        if (amount > getBalance() + overdraftLimit) {
+        if (amount > getBalance()
+         || amount > overdraftLimit
+         ) {
             throw new InsufficientFundsException("Transaction failed: Insufficient funds. Cannot withdraw " + amount);
         }
         balance -= amount;
