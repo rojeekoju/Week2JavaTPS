@@ -29,20 +29,22 @@ public class Transaction<T> {
 
     public void execute() {
         //careful, could have a ClassCastException if not an account
+        Account castAccount;
         try {
-            Account castAccount = (Account) account;
+            castAccount = (Account) account;
         } catch (ClassCastException e) {
             System.out.println("Invalid account");
+            return;
         }
 
         //deposit if positive amount
         if (amount > 0) {
-            ((Account) account).deposit(amount);
+            castAccount.deposit(amount);
         }
         //withdraw if negative
         else if (amount < 0) {
             try {
-                ((Account) account).withdraw(-amount);
+                castAccount.withdraw(-amount);
             } catch (InsufficientFundsException e) {
                 System.out.println("Unable to withdraw, insufficient funds");
             }
@@ -51,18 +53,20 @@ public class Transaction<T> {
 
     public void execute(double fee) {
         //careful, could have a ClassCastException if not an account
+        Account castAccount;
         try {
-            Account castAccount = (Account) account;
+            castAccount = (Account) account;
         } catch (ClassCastException e) {
             System.out.println("Invalid account");
+            return;
         }
 
         double newAmount = amount - fee;
 
-        if (newAmount > 0) ((Account) account).deposit(newAmount);
+        if (newAmount > 0) castAccount.deposit(newAmount);
         else if (newAmount < 0) {
             try {
-                ((Account) account).withdraw(-newAmount);
+                castAccount.withdraw(-newAmount);
             } catch (InsufficientFundsException e) {
                 System.out.println("Unable to withdraw, insufficient funds");
             }
