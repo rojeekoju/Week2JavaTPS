@@ -12,13 +12,26 @@ public abstract class Account {
 
     // Implement a deposit
 
-    public abstract void deposit(double amount);
+    public  void deposit(double amount){
+          assert amount > 0 ;
+          balance += amount;
+}
+
 
     public abstract void withdraw(double amount) throws InsufficientFundsException;
 
     // Overload withdraw method to accept an additional fee parameter (withdraw(double amount, double fee)):
-    // Withdraw the given amount plus the fee. Use assertions and handle
-    // exceptions properly.
+    public void withdraw(double amount, double fee) throws InsufficientFundsException{
+        assert amount > 0;
+        assert fee >= 0;
+        double totalAmount = amount + fee;
+        if (totalAmount > balance) {
+            throw new InsufficientFundsException("Insufficient funds for the withdrawal and fee.");
+        }
+
+        balance -= totalAmount;
+    }
+ 
 
     public int getAccountNumber() {
         return accountNumber;
@@ -34,4 +47,10 @@ public abstract class Account {
 
     // Override the toString() method to provide a string representation of the account.
 
+@Override
+    public String toString() {
+        return "Account Number: " + accountNumber + 
+               ", Account Holder: " + accountHolder + 
+               ", Balance: " + balance;
+    }
 }
