@@ -10,8 +10,14 @@ public class Bank<T extends Account> {
 
     // Create a method addAccount with a generic parameter called account,
     // to add an account to the bank's list.
-
+    public void addAccount(T account){
+        accounts.add(account);
+    }
     // Provide a function for getAccounts to get the private account variable.
+    public T getAccounts(T account){
+        return account;
+    }
+
 
     // Get total balance across all accounts
     public double getTotalBalance() {
@@ -30,6 +36,21 @@ public class Bank<T extends Account> {
                 System.out.println("Deposited $" + amount + " into account " + account.getAccountNumber());
             } else {
                 account.withdraw(-amount);
+                System.out.println("Withdrew $" + (-amount) + " from account " + account.getAccountNumber());
+            }
+        } catch (InsufficientFundsException e) {
+            System.out.println("Transaction failed: " + e.getMessage());
+        }
+    }
+
+     // Perform a transaction on a specific account
+     public void performTransaction(T account, double amount, double fee) {
+        try {
+            if (amount > 0) {
+                account.deposit(amount);
+                System.out.println("Deposited $" + amount + " into account " + account.getAccountNumber());
+            } else {
+                account.withdraw(-(amount+fee));
                 System.out.println("Withdrew $" + (-amount) + " from account " + account.getAccountNumber());
             }
         } catch (InsufficientFundsException e) {
